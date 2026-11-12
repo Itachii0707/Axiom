@@ -23,29 +23,6 @@
   <br/><em>Live Architectural Pipeline &amp; Telemetry Demo: Grounded Policy Q&amp;A vs. Deterministic Honesty Gate Refusal</em>
 </p>
 
-<p align="center">
-  <img src="images/admin_projects.png" alt="Axiom Enterprise Console — per-project knowledge bases, API monitor and domain controls" width="820"/>
-  <br/><em>Axiom Enterprise Console — sovereign knowledge bases, live API monitor, and domain controls</em>
-</p>
-
-
-
-<table align="center">
-  <tr>
-    <td align="center" width="270"><img src="images/axiom_chat1.png" alt="Chat — grounded answer about the app" width="260"/></td>
-    <td align="center" width="270"><img src="images/axiom_chat2.png" alt="Chat — feature list rendered as a table" width="260"/></td>
-    <td align="center" width="270"><img src="images/HR_1.png" alt="Chat — HR leave-policy Q&amp;A" width="260"/></td>
-  </tr>
-  <tr>
-    <td align="center"><em>Grounded answers, streamed live</em></td>
-    <td align="center"><em>Structured tables straight from your docs</em></td>
-    <td align="center"><em>Multi-turn Q&amp;A, per knowledge base</em></td>
-  </tr>
-</table>
-<p align="center">
-  <img src="images/indexing.png" alt="Document ingestion — vision-OCR auto-detect, chunking, tables and charts" width="440"/>
-  <br/><em>Document ingestion — auto-detects tables &amp; charts, then indexes chunks via the vision-OCR pipeline</em>
-</p>
 ---
 
 ## Overview
@@ -250,15 +227,19 @@ enterprise-rag-platform/
 │   ├── reranker.py             # cross-encoder scoring
 │   └── mmr.py                  # diversity selection
 ├── static/
+│   ├── index.html              # sovereign copilot studio & upload dock
 │   ├── admin.html              # tabbed admin console
-│   └── chatbot.js              # streaming chat widget + safe Markdown rendering
+│   ├── demo.html               # interactive architectural walkthrough
+│   ├── theme.css               # glassmorphic neubrutalism design tokens
+│   ├── chatbot.js              # streaming chat widget + safe Markdown rendering
+│   └── logo.svg                # sovereign geometric prism mark
 ├── migrations/                 # Alembic database migrations
 ├── scripts/                    # seed_db.py, diagnose.py, drop_all.py
-├── tests/                      # unit tests
-├── data/                       # uploaded documents (git-ignored)
-├── images/                     # screenshots
-├── .env.example
-├── alembic.ini
+├── tests/                      # unit and security test suite
+├── images/                     # animated architectural vector demonstration
+├── Dockerfile                  # multi-stage production container
+├── render.yaml                 # 1-click cloud deployment blueprint
+├── run.bat                     # 1-click automated local launcher
 ├── requirements.txt
 └── README.md
 ```

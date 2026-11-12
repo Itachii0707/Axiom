@@ -11,3 +11,4 @@ services:
         sync: false
       - key: OLLAMA_BASE_URL
         sync: false
+
