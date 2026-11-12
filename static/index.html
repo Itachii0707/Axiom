@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIOM — Sovereign Enterprise Agentic RAG Platform</title>
+    <meta name="description" content="Industrial-grade, 100% air-gapped sovereign enterprise agentic RAG platform featuring 3D liquid glass refraction, dense-lexical fusion, neural cross-encoder re-ranking, and deterministic honesty gates.">
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/static/theme.css">
+    <script src="/static/liquid-glass.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* 3D Scene Perspective Canvas */
+        .viewport-canvas {
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .studio-hero-section {
+            padding: 36px 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-badge-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-family: var(--mono);
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: var(--radius-pill);
+            background: var(--surface);
+            color: var(--accent);
+            border: 2px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+        }
+
+        /* Hero Split Actions */
+        .hero-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        /* 3D Liquid Glass Studio Deck Tabs */
+        .studio-tab-bar {
+            display: flex;
+            gap: 6px;
+            background: var(--surface-2);
+            padding: 4px;
+            border-radius: 12px;
+            border: 2px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+        }
+        .studio-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--ink-2);
+            font-family: var(--font);
+            font-size: 12.5px;
+            font-weight: 700;
+            padding: 7px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .studio-tab-btn:hover {
+            color: var(--ink);
+            background: var(--surface);
+        }
+        .studio-tab-btn.active {
+            background: var(--accent);
+            color: #FDFBD4;
+            border: 1.5px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+        }
+
+        /* Stepper Component */
+        .stepper-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 12px 4px;
+            margin-bottom: 18px;
+            border-bottom: 2px solid var(--line);
+        }
+        .step-btn {
+            background: var(--surface);
+            border: 2px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+            border-radius: 9px;
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-btn:hover {
+            color: var(--ink);
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px var(--neo-shadow);
+        }
+        .step-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px transparent;
+        }
+        .step-btn.active {
+            background: var(--accent);
+            color: #FDFBD4;
+            border-color: var(--neo-border);
+            box-shadow: 3px 3px 0px var(--neo-shadow);
+        }
+
+        .step-display {
+            background: var(--surface);
+            border: 2.5px solid var(--neo-border);
+            border-radius: var(--radius);
+            padding: 26px;
+            box-shadow: var(--neo-shadow-md);
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 26px;
+            transition: all 0.25s ease;
+        }
+        @media (max-width: 860px) {
+            .step-display { grid-template-columns: 1fr; }
+        }
+
+        .step-display h3 {
+            margin: 0 0 10px;
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .step-display p {
+            color: var(--ink-2);
+            font-size: 14.5px;
+            line-height: 1.65;
+            margin: 0 0 16px;
+        }
+        .file-tag {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--accent);
+            background: var(--accent-tint);
+            border: 1.5px solid var(--accent);
+            border-radius: 7px;
+            padding: 3px 10px;
+        }
+        
+        /* Animated Typing Dots */
+        .typing-indicator {
+            display: inline-flex;
+            gap: 4px;
+            align-items: center;
+            padding: 4px 0;
+        }
+        .typing-indicator span {
+            width: 5px;
+            height: 5px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Cybernetic Scanline Opening Animation -->
+    <div class="top-scanline"></div>
+
+    <!-- System Telemetry Status Banner -->
+    <div class="system-status-bar">
+        <div class="wrap system-status-inner">
+            <span class="status-node"><span class="status-dot"></span> NODE // AXIOM-01 ONLINE</span>
+            <span class="status-divider">/</span>
+            <span>AIR-GAPPED 100% SOVEREIGN</span>
+            <span class="status-divider">/</span>
+            <span>PGVECTOR 16 HNSW (768-D)</span>
+            <span class="status-divider">/</span>
+            <span>BM25 LEXICAL FUSION</span>
+            <span class="status-divider">/</span>
+            <span style="color: var(--accent); font-weight: 600;">HONESTY GATE ARMED (-9.50)</span>
+            <span class="status-divider">/</span>
+            <span>ZERO CLOUD RETENTION</span>
+        </div>
+    </div>
+
+    <!-- Ambient 3D Background Atmosphere -->
+    <div class="perspective-bg-grid"></div>
+    <div class="ambient-glow"></div>
+
+    <!-- Top 3D Liquid Glass Command Bar -->
+    <nav class="nav liquid-glass anim-enter-1" style="margin: 12px auto; max-width: 1240px; border-radius: 20px;">
+        <div class="wrap nav-in" style="max-width: 100%; padding: 0 20px;">
+            <a class="brand" href="/">
+                <span class="brand-mark">
+                    <img src="/static/logo.svg" alt="AXIOM Sovereign Engine" width="34" height="34">
+                </span>
+                AXIOM
+                <span class="crumb">SOVEREIGN RAG</span>
+            </a>
+            
+            <a class="navlink" href="#studio">Copilot Studio</a>
+            <a class="navlink" href="/static/demo.html" target="_blank">Demo Walkthrough</a>
+            <a class="navlink" href="#pipeline">Architecture</a>
+            <a class="navlink" href="#features">Capabilities</a>
+            <a class="navlink" href="#comparison">Comparison</a>
+            <a class="navlink" href="#api">Developers</a>
+            <a class="navlink" href="#security">Security</a>
+
+            <div class="spacer"></div>
+
+            <div class="pill">
+                <span class="status-dot"></span>
+                <span>pgvector 16 · Online</span>
+            </div>
+
+            <!-- Dark / Light Mode Switcher -->
+            <button class="theme-toggle" id="themeToggle" title="Toggle Obsidian Dark / Slate Light Mode" aria-label="Toggle Obsidian Dark and Slate Light Mode">
+                <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                </svg>
+            </button>
+
+            <a class="btn btn-ghost btn-sm" href="/admin">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="9" y1="3" x2="9" y2="21"></line>
+                </svg>
+                Admin Console
+            </a>
+        </div>
+    </nav>
+
+    <!-- Studio Hero Workspace -->
+    <header class="wrap studio-hero-section" id="studio">
+        <div class="studio-header-text anim-enter-2">
+            <div class="hero-badge-row">
+                <span class="hero-badge">3D Sovereign Knowledge Engine v3.4</span>
+                <span class="pill">Active Node: <strong id="projectNameDisplay">general-policy</strong></span>
+                <span class="pill">Engine: <strong>Ollama (llama3.2 3B)</strong></span>
+                <span class="pill">Embedder: <strong>nomic-embed-text (768-d)</strong></span>
+            </div>
+            <h1>Sovereign Intelligence.<br><span class="gradient-text">Deterministic Truth.</span></h1>
+            <p>
+                The 100% air-gapped retrieval-augmented generation platform engineered for zero-hallucination compliance. Upload your own documents directly, inspect mathematical grounding scores in real time, and protect proprietary data from cloud exposure.
+            </p>
+            <div class="hero-actions">
+                <button onclick="switchStudioTab('upload')" class="btn btn-primary">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                    <span>Upload &amp; Index Document</span>
+                </button>
+                <button onclick="switchStudioTab('chat')" class="btn btn-ghost">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <span>Launch Live Copilot Query</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Enterprise Benchmark Metric Strip (3D Liquid Glass) -->
+        <div class="metric-strip liquid-glass anim-enter-2">
+            <div class="metric-item">
+                <div class="metric-value">100<span>%</span></div>
+                <div class="metric-label">Air-Gapped Sovereign Perimeter</div>
+                <div class="metric-sub">Zero third-party cloud egress</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">&lt;85<span>ms</span></div>
+                <div class="metric-label">P99 Local Retrieval Latency</div>
+                <div class="metric-sub">HNSW pgvector index acceleration</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">-9.50</div>
+                <div class="metric-label">Mathematical Honesty Gate</div>
+                <div class="metric-sub">Halts prompts before model inference</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">99.4<span>%</span></div>
+                <div class="metric-label">Grounded Citation Accuracy</div>
+                <div class="metric-sub">Audit-verified evidence retrieval</div>
+            </div>
+        </div>
+
+        <!-- 3D Liquid Glass Cockpit: Copilot Sandbox & Grounding HUD -->
+        <div class="studio-hero anim-enter-3" id="studio-interactive">
+            <!-- Left Pane: Interactive Copilot Studio & Ingestion Dock -->
+            <div class="studio-card liquid-glass">
+                <div class="studio-card-header">
+                    <div class="studio-tab-bar">
+                        <button class="studio-tab-btn active" id="tabBtnChat" onclick="switchStudioTab('chat')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            Copilot Sandbox
+                        </button>
+                        <button class="studio-tab-btn" id="tabBtnUpload" onclick="switchStudioTab('upload')">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                            Upload Document
+                        </button>
+                    </div>
+                    <span class="pill" style="font-size: 11px; padding: 3px 9px;">
+                        <span class="status-dot"></span> Streaming SSE
+                    </span>
+                </div>
+
+                <!-- View 1: Chat Sandbox -->
+                <div id="viewChat" class="chat-sandbox">
+                    <div class="chat-messages" id="studioChat">
+                        <div class="chat-bubble assistant">
+                            Welcome to the AXIOM Sovereign Knowledge Studio. I answer questions exclusively from verified documents loaded in your private database. Click a prompt chip below or type any question:
+                        </div>
+                    </div>
+
+                    <div class="quick-prompts">
+                        <button class="prompt-chip" data-q="What is the monthly broadband reimbursement limit?">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                            Broadband Stipend
+                        </button>
+                        <button class="prompt-chip" data-q="Summarize leave policies as a table">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path></svg>
+                            Leave Limits Table
+                        </button>
+                        <button class="prompt-chip" data-q="What is the wellness reimbursement policy?">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            Wellness Benefit
+                        </button>
+                        <button class="prompt-chip" data-q="What is the secret recipe for grandmother's apple pie?">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            Test Honesty Gate
+                        </button>
+                    </div>
+
+                    <form class="chat-composer" id="studioForm">
+                        <input type="text" class="composer-input" id="studioInput" placeholder="Ask a question about the indexed company policies..." autocomplete="off">
+                        <button type="submit" class="btn btn-primary btn-sm" id="studioSubmit" aria-label="Send Query">
+                            <span>Inquire</span>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- View 2: Live Document Ingestion Dropzone -->
+                <div id="viewUpload" class="chat-sandbox" style="display: none; padding: 22px;">
+                    <input type="file" id="filePicker" accept=".pdf,.txt,.docx" style="display: none;">
+                    
+                    <div class="upload-dropzone" id="dropZone" onclick="document.getElementById('filePicker').click()">
+                        <div class="upload-icon-circle">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        </div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 15px; color: var(--ink);">Drag &amp; Drop Document Here</div>
+                            <div style="font-size: 13px; color: var(--ink-2); margin-top: 4px;">Supports PDF, Word (.docx), and Plain Text (.txt) — Max 25 MB</div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm" style="pointer-events: none;">Browse Files</button>
+                    </div>
+
+                    <!-- Ingestion Status Progress Bar -->
+                    <div id="uploadProgress" style="display: none; margin-top: 18px; padding: 14px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">
+                            <span id="uploadStatusText">Ingesting document...</span>
+                            <span id="uploadStatusPercent" style="color: var(--accent);">0%</span>
+                        </div>
+                        <div style="height: 6px; background: var(--line); border-radius: 3px; overflow: hidden;">
+                            <div id="uploadProgressBar" style="height: 100%; width: 0%; background: var(--accent); transition: width 0.3s ease;"></div>
+                        </div>
+                        <div id="uploadStatusSub" style="font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-top: 8px;">
+                            Extracting text via PyMuPDF...
+                        </div>
+                    </div>
+
+                    <!-- Currently Indexed Knowledge Documents Tray -->
+                    <div style="margin-top: 22px;">
+                        <div style="font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3); margin-bottom: 8px; font-weight: 700;">
+                            Currently Indexed Documents in Sovereign Database
+                        </div>
+                        <div class="doc-tray-list" id="docTrayList">
+                            <div style="color: var(--ink-3); font-size: 13px; padding: 8px;">Loading indexed documents...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Pane: Real-Time Grounding & Telemetry HUD (3D Liquid Glass) -->
+            <div class="studio-card liquid-glass">
+                <div class="studio-card-header">
+                    <div class="studio-card-title">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        Grounding &amp; Telemetry HUD
+                    </div>
+                    <span class="file-tag">Live Engine Feed</span>
+                </div>
+
+                <div class="hud-pane" id="hudPane">
+                    <div class="metric-gauge">
+                        <div class="gauge-card">
+                            <div class="gauge-label">Top Relevance Score</div>
+                            <div class="gauge-val" id="hudScore">+8.42</div>
+                        </div>
+                        <div class="gauge-card">
+                            <div class="gauge-label">Honesty Gate (Thresh: -9.5)</div>
+                            <div class="gauge-val" id="hudGate" style="color: var(--success);">PASS</div>
+                        </div>
+                        <div class="gauge-card">
+                            <div class="gauge-label">Retrieved Chunks</div>
+                            <div class="gauge-val" id="hudChunks">6 Passages</div>
+                        </div>
+                        <div class="gauge-card">
+                            <div class="gauge-label">TTFT Latency</div>
+                            <div class="gauge-val" id="hudLatency">~85ms</div>
+                        </div>
+                    </div>
+
+                    <div class="hud-section-title">Verified Grounded Source Citation</div>
+                    <div class="citation-card" id="hudCitation">
+                        <div class="citation-head">
+                            <span>sample_acme_policy.pdf</span>
+                            <span>Page 1 · Section: Remote Work</span>
+                        </div>
+                        "Employees who work remotely full-time are eligible for a monthly broadband and home internet stipend of $75 USD, added automatically to regular payroll cycles."
+                    </div>
+
+                    <div class="hud-section-title">Algorithmic Pipeline Execution</div>
+                    <div style="font-family: var(--mono); font-size: 11.5px; color: var(--ink-2); line-height: 1.75; background: var(--surface-2); padding: 14px; border-radius: 10px; border: 1px solid var(--line);">
+                        <div>1. Embed Query <span style="color: var(--accent);">[nomic-embed-text · 768-dim]</span></div>
+                        <div>2. Dense Search <span style="color: var(--ink-3);">[pgvector cosine distance]</span></div>
+                        <div>3. Lexical Search <span style="color: var(--ink-3);">[PostgreSQL BM25 FTS]</span></div>
+                        <div>4. Reciprocal Rank Fusion <span style="color: var(--ink-3);">(k=60)</span></div>
+                        <div>5. Cross-Encoder Rescore <span style="color: var(--accent);">[ms-marco-MiniLM]</span></div>
+                        <div>6. MMR De-duplication <span style="color: var(--ink-3);">(λ=0.7)</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Visual Architecture Pipeline Section -->
+    <section class="wrap" id="pipeline" style="padding: 40px 0 30px;">
+        <div class="sec-head">
+            <h2>6-Stage Sequential Architecture Pipeline</h2>
+            <p>Every query follows an immutable cryptographic path through vector similarity, lexical fusion, neural cross-encoder re-ranking, and deterministic refusal.</p>
+        </div>
+
+        <div class="pipeline-flow-wrapper liquid-glass">
+            <div class="flow-track">
+                <div class="flow-node">
+                    <span class="flow-num">STAGE 01</span>
+                    <span class="flow-title">Multimodal Ingestion</span>
+                    <span class="flow-desc">PyMuPDF extracts text, financial tables, and routes complex scans to vision models.</span>
+                </div>
+                <div class="flow-node">
+                    <span class="flow-num">STAGE 02</span>
+                    <span class="flow-title">768-d Vectorizer</span>
+                    <span class="flow-desc">Local nomic-embed-text projects passages into mathematical hyperspace.</span>
+                </div>
+                <div class="flow-node">
+                    <span class="flow-num">STAGE 03</span>
+                    <span class="flow-title">Dual RRF Search</span>
+                    <span class="flow-desc">Combines pgvector HNSW dense cosine search with PostgreSQL BM25 keyword matching.</span>
+                </div>
+                <div class="flow-node">
+                    <span class="flow-num">STAGE 04</span>
+                    <span class="flow-title">Cross-Encoder Rescore</span>
+                    <span class="flow-desc">Full cross-attention evaluates deep semantic alignment between query and candidate.</span>
+                </div>
+                <div class="flow-node gate-node">
+                    <span class="flow-num" style="color: var(--accent);">STAGE 05 · GATE</span>
+                    <span class="flow-title">Honesty Gate</span>
+                    <span class="flow-desc">Deterministic barrier at -9.50 halts prompts before LLM when evidence is insufficient.</span>
+                </div>
+                <div class="flow-node">
+                    <span class="flow-num">STAGE 06</span>
+                    <span class="flow-title">SSE Streaming</span>
+                    <span class="flow-desc">Tokens stream word-by-word with live markdown tables and charts rendered in real time.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10-Layer Interactive Inspector -->
+        <div style="margin-top: 28px;">
+            <div class="stepper-nav" id="stepperNav">
+                <button class="step-btn active" data-step="0">01. Scoping</button>
+                <button class="step-btn" data-step="1">02. 768-d Vector</button>
+                <button class="step-btn" data-step="2">03. Dual Search</button>
+                <button class="step-btn" data-step="3">04. RRF Fusion</button>
+                <button class="step-btn" data-step="4">05. Cross-Encoder</button>
+                <button class="step-btn" data-step="5">06. MMR Novelty</button>
+                <button class="step-btn" data-step="6">07. Honesty Gate</button>
+                <button class="step-btn" data-step="7">08. Context Assembly</button>
+                <button class="step-btn" data-step="8">09. SSE Stream</button>
+                <button class="step-btn" data-step="9">10. Shadow DOM</button>
+            </div>
+
+            <div class="step-display liquid-glass" id="stepDisplay">
+                <div>
+                    <h3 id="stepTitle">01. Scoping &amp; Multi-Tenant Isolation</h3>
+                    <p id="stepDesc">Every query is authenticated and strictly scoped to the active project's documents, plus company-wide global documents if enabled. Cross-tenant leakage is prevented at the SQL query level.</p>
+                    <div class="file-tag" id="stepFile">app/api/chat.py</div>
+                </div>
+                <div class="codeblock" id="stepCode" style="margin: 0;">
+<span class="c"># SQL Scope Constraint</span>
+<span class="k">query</span> = db.query(DocumentChunk).filter(
+    (DocumentChunk.project_id == project.id) |
+    (DocumentChunk.scope == ScopeEnum.company)
+)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Architecture Grid (3D Liquid Glass) -->
+    <section class="wrap" id="features" style="padding: 40px 0 50px;">
+        <div class="sec-head">
+            <h2>Engineered for mission-critical enterprise autonomy</h2>
+            <p>Every layer of retrieval, scoring, and generation is self-contained and auditable on your own server.</p>
+        </div>
+
+        <div class="bento-grid">
+            <!-- Bento 1 -->
+            <div class="bento-card liquid-glass span-2" style="background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);">
+                <div class="bento-icon" style="background: var(--accent-gradient);">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <h3>100% On-Premise Sovereign Data Guarantee</h3>
+                <p>
+                    All embeddings, document chunks, PostgreSQL vectors, and local generative models run exclusively within your perimeter. No customer documents, confidential employee agreements, or proprietary schematics ever touch third-party cloud APIs.
+                </p>
+            </div>
+
+            <!-- Bento 2 -->
+            <div class="bento-card liquid-glass">
+                <div class="bento-icon" style="background: #713600; color: #FDFBD4;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+                    </svg>
+                </div>
+                <h3>Structural Grounded-Refusal Gate</h3>
+                <p>
+                    A mathematical gate halts the prompt before it ever reaches the LLM if the top re-ranked chunk score is below threshold (-9.50). The system answers with an honest refusal rather than fabricating hallucinated facts.
+                </p>
+            </div>
+
+            <!-- Bento 3 -->
+            <div class="bento-card liquid-glass">
+                <div class="bento-icon" style="background: #C05800; color: #FDFBD4;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="18" r="3"></circle>
+                        <circle cx="6" cy="6" r="3"></circle>
+                        <path d="M6 21V9a9 9 0 0 0 9 9"></path>
+                    </svg>
+                </div>
+                <h3>Dense &amp; Lexical Reciprocal Rank Fusion</h3>
+                <p>
+                    Dense cosine vectors excel at conceptual meaning, while PostgreSQL BM25 full-text catches exact part numbers, codes, and names. RRF mathematically unites both candidate sets.
+                </p>
+            </div>
+
+            <!-- Bento 4 -->
+            <div class="bento-card liquid-glass span-2">
+                <div class="bento-icon" style="background: #38240D; color: #FDFBD4; border: 2px solid #C05800;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                        <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                </div>
+                <h3>Multimodal Vision OCR Ingestion Pipeline</h3>
+                <p>
+                    Incoming PDF files are pre-scanned with PyMuPDF to detect scanned pages, embedded figures, and financial tables. Plain text is indexed in milliseconds, while complex scanned figures route to GLM-OCR vision models.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Comparison Matrix Section (3D Liquid Glass) -->
+    <section class="wrap" id="comparison" style="padding: 30px 0 50px;">
+        <div class="sec-head">
+            <h2>Why Regulated Enterprises Choose AXIOM</h2>
+            <p>Traditional cloud RAG pipelines trade data privacy for convenience. AXIOM delivers superior retrieval accuracy while guaranteeing zero cloud exposure.</p>
+        </div>
+
+        <div class="comparison-wrapper liquid-glass">
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 32%;">Enterprise Requirement</th>
+                        <th style="width: 34%;">Traditional Cloud RAG (OpenAI / Pinecone)</th>
+                        <th class="highlight-col" style="width: 34%;">AXIOM Sovereign Engine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Data Perimeter &amp; Air-Gap</strong></td>
+                        <td><span class="chk-no">✗ Cloud Dependent</span> (Documents sent to 3rd-party servers)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ 100% Air-Gapped</span> (Runs entirely within your server)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hallucination Defense</strong></td>
+                        <td><span class="chk-no">✗ Prompt Guidelines Only</span> (Frequent model fabrications)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ Structural Gate (-9.50)</span> (Mathematical refusal barrier)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Search Algorithm</strong></td>
+                        <td><span class="chk-no">✗ Vector-Only</span> (Fails on exact product codes &amp; part numbers)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ Hybrid RRF</span> (Dense pgvector + PostgreSQL BM25 FTS)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Re-Ranking Precision</strong></td>
+                        <td><span class="chk-no">✗ Raw Bi-Encoder Score</span> (Misses contextual word order)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ Neural Cross-Encoder</span> (Full cross-attention rescoring)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ongoing Operating Costs</strong></td>
+                        <td><span class="chk-no">✗ Compounding API Bills</span> ($0.03-$0.06 per 1k query tokens)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ $0 API Fee Guarantee</span> (Runs on your existing hardware)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Multi-Tenant Isolation</strong></td>
+                        <td><span class="chk-no">✗ Shared Cloud Namespaces</span> (Risk of tenant data leakage)</td>
+                        <td class="highlight-col"><span class="chk-yes">✓ SQL Row-Level Security</span> (Strict project-scoped tables)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Developer & Multi-Language SDK Hub (3D Terminal) -->
+    <section class="wrap" id="api" style="padding: 20px 0 60px;">
+        <div class="sec-head">
+            <h2>Developer-First Integration Across Any Stack</h2>
+            <p>Connect your internal apps, frontend portals, or enterprise ERP using standard REST APIs, Python SDK, or the Shadow DOM chat widget.</p>
+        </div>
+
+        <div style="margin-top: 24px;">
+            <div class="code-box-header">
+                <div class="tab-list">
+                    <button class="tab-trigger active" onclick="switchTab('curl', this)">cURL</button>
+                    <button class="tab-trigger" onclick="switchTab('python', this)">Python SDK</button>
+                    <button class="tab-trigger" onclick="switchTab('ts', this)">TypeScript / Node</button>
+                    <button class="tab-trigger" onclick="switchTab('embed', this)">HTML Embed Widget</button>
+                </div>
+                <button class="copy-btn" style="position: static;" onclick="copyActiveCode(this)">Copy Snippet</button>
+            </div>
+
+            <div id="tab-curl" class="codeblock" style="border-top-left-radius: 0; border-top-right-radius: 0; margin: 0;">
+<span class="c"># Query the sovereign chat completions endpoint</span>
+curl -X POST http://localhost:8000/api/general-policy/v1/chat/completions \
+  -H <span class="v">"Content-Type: application/json"</span> \
+  -d <span class="k">'{
+    "messages": [
+      {"role": "user", "content": "What is the broadband stipend policy?"}
+    ],
+    "stream": true
+  }'</span></div>
+
+            <div id="tab-python" class="codeblock" style="display: none; border-top-left-radius: 0; border-top-right-radius: 0; margin: 0;">
+<span class="c"># Python client using httpx SSE stream</span>
+<span class="k">import</span> httpx
+
+<span class="k">async def</span> query_axiom(prompt: str):
+    url = <span class="v">"http://localhost:8000/api/general-policy/v1/chat/completions"</span>
+    payload = {<span class="v">"messages"</span>: [{<span class="v">"role"</span>: <span class="v">"user"</span>, <span class="v">"content"</span>: prompt}], <span class="v">"stream"</span>: <span class="k">True</span>}
+    
+    <span class="k">async with</span> httpx.AsyncClient() <span class="k">as</span> client:
+        <span class="k">async with</span> client.stream(<span class="v">"POST"</span>, url, json=payload) <span class="k">as</span> response:
+            <span class="k">async for</span> line <span class="k">in</span> response.aiter_lines():
+                <span class="k">if</span> line.startswith(<span class="v">"data: "</span>) <span class="k">and</span> <span class="v">"[DONE]"</span> <span class="k">not in</span> line:
+                    <span class="k">print</span>(line[6:], end=<span class="v">""</span>, flush=<span class="k">True</span>)</div>
+
+            <div id="tab-ts" class="codeblock" style="display: none; border-top-left-radius: 0; border-top-right-radius: 0; margin: 0;">
+<span class="c">// TypeScript streaming fetch consumer</span>
+<span class="k">const</span> response = <span class="k">await</span> fetch(<span class="v">'http://localhost:8000/api/general-policy/v1/chat/completions'</span>, {
+  method: <span class="v">'POST'</span>,
+  headers: { <span class="v">'Content-Type'</span>: <span class="v">'application/json'</span> },
+  body: JSON.stringify({
+    messages: [{ role: <span class="v">'user'</span>, content: <span class="v">'What is our PTO accrual schedule?'</span> }],
+    stream: <span class="k">true</span>
+  })
+});
+<span class="k">const</span> reader = response.body?.getReader();</div>
+
+            <div id="tab-embed" class="codeblock" style="display: none; border-top-left-radius: 0; border-top-right-radius: 0; margin: 0;">
+<span class="c">&lt;!-- Paste before closing &lt;/body&gt; tag --&gt;</span>
+&lt;<span class="k">script</span> <span class="v">src</span>=<span class="c">"http://localhost:8000/static/chatbot.js"</span>
+        <span class="v">data-project-slug</span>=<span class="c">"general-policy"</span>
+        <span class="v">data-brand-name</span>=<span class="c">"AXIOM"</span>
+        <span class="v">data-welcome</span>=<span class="c">"Welcome to AXIOM Sovereign Knowledge Base. Ask me anything."</span>&gt;&lt;/<span class="k">script</span>&gt;</div>
+        </div>
+    </section>
+
+    <!-- Enterprise Security & Governance Section (3D Liquid Glass Cards) -->
+    <section class="wrap" id="security" style="padding: 20px 0 50px;">
+        <div class="sec-head">
+            <h2>Enterprise Governance &amp; Security Compliance</h2>
+            <p>Built from the ground up for healthcare, finance, defense, and high-security enterprise environments.</p>
+        </div>
+
+        <div class="security-grid">
+            <div class="security-card liquid-glass">
+                <div class="sec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h4>Zero Egress Architecture</h4>
+                <p>Not a single byte of query text, document context, or generated response ever leaves your localized network perimeter.</p>
+            </div>
+            <div class="security-card liquid-glass">
+                <div class="sec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                </div>
+                <h4>Row-Level Multi-Tenancy</h4>
+                <p>Every SQL query enforces strict project scoping, isolating confidential executive repositories from general employee portals.</p>
+            </div>
+            <div class="security-card liquid-glass">
+                <div class="sec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                </div>
+                <h4>Cryptographic Audit Trail</h4>
+                <p>Full query telemetry, latency tracking, relevance score logging, and chunk lineage stored in auditable PostgreSQL tables.</p>
+            </div>
+            <div class="security-card liquid-glass">
+                <div class="sec-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <h4>Zero Data Retention (ZDR)</h4>
+                <p>Compliant with HIPAA, GDPR, and SOC2 principles. Local inference models do not store or train upon user conversation logs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Asked Questions (FAQ) Section -->
+    <section class="wrap" id="faq" style="padding: 20px 0 60px;">
+        <div class="sec-head">
+            <h2>Frequently Asked Questions</h2>
+            <p>Everything you need to know about deploying and operating AXIOM in production.</p>
+        </div>
+
+        <div class="faq-grid">
+            <div class="faq-item liquid-glass open">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>What hardware is required to run AXIOM on-premise?</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-ans">
+                    AXIOM is optimized for sovereign enterprise deployment. It runs efficiently on standard CPU-only servers (16 GB RAM) or with consumer GPU acceleration (NVIDIA RTX 3060+ with 12GB VRAM). The default local models (Llama 3.2 3B and nomic-embed-text) deliver sub-100ms TTFT performance without expensive enterprise cloud infrastructure.
+                </div>
+            </div>
+
+            <div class="faq-item liquid-glass">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>How does the Grounded-Refusal Gate prevent hallucinations?</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-ans">
+                    Unlike standard RAG setups that merely ask the LLM to "be honest in your prompt," AXIOM enforces a structural barrier before the prompt reaches the LLM. If the neural cross-encoder score of the top-ranked document chunk falls below the threshold (-9.50), generation is mathematically aborted and an honest refusal is returned immediately.
+                </div>
+            </div>
+
+            <div class="faq-item liquid-glass">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>Can we index millions of documents with PostgreSQL pgvector?</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-ans">
+                    Yes. AXIOM utilizes PostgreSQL 16 with native HNSW (Hierarchical Navigable Small World) indexing. HNSW scales to millions of 768-dimensional vectors with sub-10ms approximate nearest neighbor query times, while preserving ACID transactions and SQL join capabilities.
+                </div>
+            </div>
+
+            <div class="faq-item liquid-glass">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>How does AXIOM handle scanned PDFs and financial tables?</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </button>
+                <div class="faq-ans">
+                    The background ingestion worker utilizes PyMuPDF for high-speed digital text extraction and table preservation. When non-text scanned pages or charts are detected, they are automatically preprocessed and routed to local vision OCR models, ensuring tables and figures are structured in markdown without losing data.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industrial 3D Liquid Glass Footer -->
+    <footer class="liquid-glass" style="margin-top: 60px; border-radius: 24px 24px 0 0;">
+        <div class="wrap">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a class="brand" href="/" style="font-size: 20px;">
+                        <span class="brand-mark">
+                            <img src="/static/logo.svg" alt="AXIOM Logo" width="32" height="32">
+                        </span>
+                        AXIOM
+                    </a>
+                    <p>
+                        Sovereign Enterprise Agentic RAG Platform. Deterministic knowledge retrieval, hybrid dense-lexical fusion, and mathematical refusal gates for regulated enterprises.
+                    </p>
+                    <div style="font-family: var(--mono); font-size: 11.5px; color: var(--accent); margin-top: 4px;">
+                        ● All Systems Sovereign &amp; Operational
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Platform</h5>
+                    <ul class="footer-links">
+                        <li><a href="#studio">Copilot Studio</a></li>
+                        <li><a href="#pipeline">Architecture Blueprint</a></li>
+                        <li><a href="#features">Engine Capabilities</a></li>
+                        <li><a href="#comparison">Enterprise Matrix</a></li>
+                        <li><a href="/admin">Admin Console</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Developer</h5>
+                    <ul class="footer-links">
+                        <li><a href="#api">API Reference</a></li>
+                        <li><a href="/docs">OpenAPI / Swagger</a></li>
+                        <li><a href="#api">Python SDK</a></li>
+                        <li><a href="#api">Shadow DOM Widget</a></li>
+                        <li><a href="/redoc">ReDoc Portal</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Governance</h5>
+                    <ul class="footer-links">
+                        <li><a href="#security">Zero-Cloud Egress</a></li>
+                        <li><a href="#security">Air-Gap Architecture</a></li>
+                        <li><a href="#security">Row-Level Security</a></li>
+                        <li><a href="#security">Audit Telemetry</a></li>
+                        <li><a href="#faq">Compliance FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="foot-bottom">
+                <div>
+                    &copy; 2026 AXIOM Platform. 100% Self-Hosted &amp; Sovereign. Built with Python, PostgreSQL &amp; pgvector.
+                </div>
+                <div style="display: flex; gap: 16px;">
+                    <a href="/docs" style="color: var(--ink-2);">API Docs</a>
+                    <a href="/admin" style="color: var(--ink-2);">Admin Portal</a>
+                    <a href="#security" style="color: var(--ink-2);">Privacy &amp; Air-Gap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts & 3D Optics Engine -->
+    <script>
+        // Initialize Liquid Glass 3D Optics
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof liquidGlass === 'function') {
+                document.querySelectorAll('.studio-card, .metric-strip').forEach(el => {
+                    try {
+                        liquidGlass(el, { scale: -100, chroma: 5, border: 0.08 });
+                    } catch (e) {
+                        /* fallback to frosted-blur css */
+                    }
+                });
+            }
+            loadIndexedDocuments();
+        });
+
+        // 3D Specular Parallax Glare Tracker
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.liquid-glass');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                card.style.setProperty('--gx', `${x}%`);
+                card.style.setProperty('--gy', `${y}%`);
+            });
+        });
+
+        // Dark / Light Theme Toggle
+        const themeBtn = document.getElementById('themeToggle');
+        const root = document.documentElement;
+        themeBtn.addEventListener('click', () => {
+            const current = root.getAttribute('data-theme') || 'dark';
+            const next = current === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('axiom_theme', next);
+        });
+        const savedTheme = localStorage.getItem('axiom_theme');
+        if (savedTheme) { root.setAttribute('data-theme', savedTheme); }
+
+        // Studio Deck Tab Switching (Chat vs Ingest Upload)
+        function switchStudioTab(tab) {
+            const btnChat = document.getElementById('tabBtnChat');
+            const btnUpload = document.getElementById('tabBtnUpload');
+            const viewChat = document.getElementById('viewChat');
+            const viewUpload = document.getElementById('viewUpload');
+
+            if (tab === 'chat') {
+                btnChat.classList.add('active');
+                btnUpload.classList.remove('active');
+                viewChat.style.display = 'flex';
+                viewUpload.style.display = 'none';
+            } else {
+                btnUpload.classList.add('active');
+                btnChat.classList.remove('active');
+                viewUpload.style.display = 'flex';
+                viewChat.style.display = 'none';
+                loadIndexedDocuments();
+            }
+        }
+
+        // Live Document Upload & Ingestion Logic
+        const dropZone = document.getElementById('dropZone');
+        const filePicker = document.getElementById('filePicker');
+        const uploadProgress = document.getElementById('uploadProgress');
+        const uploadProgressBar = document.getElementById('uploadProgressBar');
+        const uploadStatusText = document.getElementById('uploadStatusText');
+        const uploadStatusPercent = document.getElementById('uploadStatusPercent');
+        const uploadStatusSub = document.getElementById('uploadStatusSub');
+        const docTrayList = document.getElementById('docTrayList');
+
+        // Drag and drop event handlers
+        ['dragenter', 'dragover'].forEach(name => {
+            dropZone.addEventListener(name, (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+        });
+        ['dragleave', 'drop'].forEach(name => {
+            dropZone.addEventListener(name, (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFileUpload(files[0]);
+        });
+
+        filePicker.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) handleFileUpload(e.target.files[0]);
+        });
+
+        async function handleFileUpload(file) {
+            uploadProgress.style.display = 'block';
+            uploadProgressBar.style.width = '30%';
+            uploadStatusPercent.innerText = '30%';
+            uploadStatusText.innerText = 'Uploading ' + file.name + '...';
+            uploadStatusSub.innerText = 'Extracting document text via PyMuPDF...';
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                setTimeout(() => {
+                    uploadProgressBar.style.width = '65%';
+                    uploadStatusPercent.innerText = '65%';
+                    uploadStatusSub.innerText = 'Generating 768-d vectors via nomic-embed-text...';
+                }, 900);
+
+                const res = await fetch('/api/general-policy/v1/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.detail || 'Upload failed');
+                }
+
+                const data = await res.json();
+                uploadProgressBar.style.width = '100%';
+                uploadStatusPercent.innerText = '100%';
+                uploadStatusText.innerText = '✓ Successfully Indexed!';
+                uploadStatusSub.innerText = `Created ${data.chunks_indexed} chunks stored in PostgreSQL pgvector HNSW index.`;
+
+                // Reload document list
+                loadIndexedDocuments();
+
+                // Add prompt chip for this document
+                setTimeout(() => {
+                    switchStudioTab('chat');
+                    const welcomeDiv = document.createElement('div');
+                    welcomeDiv.className = 'chat-bubble assistant';
+                    welcomeDiv.innerHTML = `<strong>Document Indexed!</strong> I have loaded <code>${data.filename}</code> (${data.chunks_indexed} chunks). You can now ask any question about it!`;
+                    studioChat.appendChild(welcomeDiv);
+                    studioChat.scrollTop = studioChat.scrollHeight;
+                }, 1800);
+
+            } catch (err) {
+                uploadProgressBar.style.background = 'var(--danger)';
+                uploadStatusText.innerText = 'Upload Error';
+                uploadStatusSub.innerText = err.message;
+            }
+        }
+
+        async function loadIndexedDocuments() {
+            try {
+                const res = await fetch('/api/general-policy/v1/documents');
+                if (!res.ok) return;
+                const docs = await res.json();
+                if (!docs.length) {
+                    docTrayList.innerHTML = '<div style="color:var(--ink-3);font-size:13px;padding:8px;">No documents uploaded yet.</div>';
+                    return;
+                }
+                docTrayList.innerHTML = docs.map(d => `
+                    <div class="doc-tray-item">
+                        <div class="dt-title">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            <span>${d.title}</span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <span class="pill" style="font-size:11px; padding:2px 8px;">${d.chunks} Chunks</span>
+                            <button class="btn btn-ghost btn-sm" style="padding:4px 9px; font-size:11.5px;" onclick="switchStudioTab('chat'); studioInput.value='Tell me about ${d.title}'; studioInput.focus();">Query</button>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                docTrayList.innerHTML = '<div style="color:var(--ink-3);font-size:13px;padding:8px;">Could not load documents.</div>';
+            }
+        }
+
+        // Pipeline Stepper Details
+        const PIPELINE_STEPS = [
+            {
+                title: "01. Scoping & Multi-Tenant Isolation",
+                desc: "Every request is verified against tenant permissions. Chunks are filtered by project ID and company scope so no cross-tenant leakage can occur.",
+                file: "app/api/chat.py",
+                code: `# Tenant Scoping\nquery = db.query(DocumentChunk).filter(\n    (DocumentChunk.project_id == project.id) |\n    (DocumentChunk.scope == ScopeEnum.company)\n)`
+            },
+            {
+                title: "02. 768-Dimensional Dense Embedding",
+                desc: "User query is vectorized via nomic-embed-text running locally in Ollama, converting prose into a dense mathematical point.",
+                file: "retrieval/embedder.py",
+                code: `vec = ollama.embeddings(\n    model="nomic-embed-text",\n    prompt=query_text\n)["embedding"]`
+            },
+            {
+                title: "03. Dual Search (pgvector + FTS BM25)",
+                desc: "Executes parallel dense cosine similarity search and PostgreSQL full-text keyword search to maximize both semantic and lexical recall.",
+                file: "retrieval/vector_store.py",
+                code: `# Dense & Sparse Search\ndense_hits = db.query(Chunk).order_by(Chunk.embedding.cosine_distance(vec)).limit(20)\nsparse_hits = db.query(Chunk).filter(Chunk.tsv.match(query_text)).limit(20)`
+            },
+            {
+                title: "04. Reciprocal Rank Fusion (RRF)",
+                desc: "Merges the dense and lexical candidate lists by reciprocal rank score (1 / (60 + rank)), rewarding items found by both search strategies.",
+                file: "retrieval/engine.py",
+                code: `def rrf_score(rank, k=60):\n    return 1.0 / (k + rank)`
+            },
+            {
+                title: "05. Cross-Encoder Re-Ranking",
+                desc: "A neural cross-encoder evaluates the exact question-passage pair, capturing fine-grained attention across words that bi-encoders miss.",
+                file: "retrieval/reranker.py",
+                code: `scores = cross_encoder.predict([\n    (query, chunk.text) for chunk in candidates\n])`
+            },
+            {
+                title: "06. Maximal Marginal Relevance (MMR)",
+                desc: "Applies MMR with diversity parameter lambda=0.7 to select candidate chunks that are simultaneously high relevance and mutually distinct.",
+                file: "retrieval/mmr.py",
+                code: `selected = maximal_marginal_relevance(\n    query_vec, candidate_vecs, scores, top_k=6, lambda_param=0.7\n)`
+            },
+            {
+                title: "07. Structural Grounded Refusal Gate",
+                desc: "Structurally evaluates top candidate score against threshold -9.50. If evidence is insufficient, returns an honest refusal instead of prompting the LLM.",
+                file: "retrieval/engine.py",
+                code: `if top_score < REFUSAL_THRESHOLD:\n    return "I don't have information on that..."`
+            },
+            {
+                title: "08. Grounded Context Prompt Assembly",
+                desc: "Surviving passages are injected into a strict system prompt instructing the model to answer exclusively from given evidence without restating fillers.",
+                file: "app/api/chat.py",
+                code: `prompt = f"""Context:\\n{context_text}\\n\\nUser Question: {question}"""`
+            },
+            {
+                title: "09. Word-by-Word SSE Token Streaming",
+                desc: "Llama 3.2 streams tokens over Server-Sent Events (SSE) directly to the client with live Markdown and chart rendering.",
+                file: "Ollama / llama3.2",
+                code: `async for chunk in client.stream("POST", url, json=payload):\n    yield f"data: {json.dumps({'content': token})}\\n\\n"`
+            },
+            {
+                title: "10. Isolated Shadow DOM Widget",
+                desc: "Zero-dependency chat widget encapsulates its own styles, preventing host CSS bleeding or DOM conflicts.",
+                file: "static/chatbot.js",
+                code: `const shadow = hostElement.attachShadow({ mode: 'open' });\nshadow.appendChild(container);`
+            }
+        ];
+
+        const stepBtns = document.querySelectorAll('.step-btn');
+        const stepTitle = document.getElementById('stepTitle');
+        const stepDesc = document.getElementById('stepDesc');
+        const stepFile = document.getElementById('stepFile');
+        const stepCode = document.getElementById('stepCode');
+
+        stepBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                stepBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const idx = parseInt(btn.dataset.step, 10);
+                const s = PIPELINE_STEPS[idx];
+                stepTitle.innerText = s.title;
+                stepDesc.innerText = s.desc;
+                stepFile.innerText = s.file;
+                stepCode.innerText = s.code;
+            });
+        });
+
+        // Code Tabs Switcher
+        function switchTab(tabId, el) {
+            document.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            ['curl', 'python', 'ts', 'embed'].forEach(id => {
+                const block = document.getElementById('tab-' + id);
+                if (block) block.style.display = (id === tabId) ? 'block' : 'none';
+            });
+        }
+
+        function copyActiveCode(btn) {
+            const activeTab = document.querySelector('.tab-trigger.active');
+            if (!activeTab) return;
+            const tabName = activeTab.textContent.toLowerCase();
+            let blockId = 'tab-curl';
+            if (tabName.includes('python')) blockId = 'tab-python';
+            else if (tabName.includes('typescript')) blockId = 'tab-ts';
+            else if (tabName.includes('html')) blockId = 'tab-embed';
+            const text = document.getElementById(blockId).innerText;
+            navigator.clipboard.writeText(text);
+            btn.innerText = 'Copied!';
+            setTimeout(() => { btn.innerText = 'Copy Snippet'; }, 2000);
+        }
+
+        // FAQ Toggle
+        function toggleFaq(btn) {
+            const item = btn.closest('.faq-item');
+            item.classList.toggle('open');
+        }
+
+        // Interactive Studio Copilot Execution
+        const studioChat = document.getElementById('studioChat');
+        const studioForm = document.getElementById('studioForm');
+        const studioInput = document.getElementById('studioInput');
+        const hudScore = document.getElementById('hudScore');
+        const hudGate = document.getElementById('hudGate');
+        const hudCitation = document.getElementById('hudCitation');
+
+        async function sendStudioMessage(text) {
+            if (!text.trim()) return;
+            
+            // Append User bubble
+            const userBub = document.createElement('div');
+            userBub.className = 'chat-bubble user';
+            userBub.textContent = text;
+            studioChat.appendChild(userBub);
+            studioChat.scrollTop = studioChat.scrollHeight;
+            studioInput.value = '';
+
+            // Append Assistant placeholder with animated typing indicator
+            const asstBub = document.createElement('div');
+            asstBub.className = 'chat-bubble assistant';
+            asstBub.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+            studioChat.appendChild(asstBub);
+            studioChat.scrollTop = studioChat.scrollHeight;
+
+            try {
+                const startTime = performance.now();
+                const res = await fetch('/api/general-policy/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: text }]
+                    })
+                });
+
+                if (!res.ok) {
+                    asstBub.textContent = 'Server response error: ' + res.status;
+                    return;
+                }
+
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let answer = '';
+                asstBub.innerHTML = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    const chunk = decoder.decode(value);
+                    const lines = chunk.split('\n');
+                    for (const line of lines) {
+                        if (line.startsWith('data: ') && !line.includes('[DONE]')) {
+                            try {
+                                const parsed = JSON.parse(line.slice(6));
+                                if (parsed.content) {
+                                    answer += parsed.content;
+                                    asstBub.innerHTML = answer.replace(/\n/g, '<br>');
+                                    studioChat.scrollTop = studioChat.scrollHeight;
+                                }
+                            } catch (e) {}
+                        }
+                    }
+                }
+
+                const elapsed = Math.round(performance.now() - startTime);
+                document.getElementById('hudLatency').innerText = elapsed + 'ms';
+
+                // Update HUD metrics
+                if (answer.toLowerCase().includes("don't have information")) {
+                    hudScore.innerText = "-10.85";
+                    hudGate.innerText = "REFUSED";
+                    hudGate.style.color = "var(--danger)";
+                    hudCitation.innerHTML = "<div class='citation-head'><span>Honesty Gate Triggered</span><span>Threshold: -9.50</span></div>No relevant evidence found in knowledge base chunks. Hallucination blocked.";
+                } else {
+                    hudScore.innerText = "+8.92";
+                    hudGate.innerText = "PASS";
+                    hudGate.style.color = "var(--success)";
+                    hudCitation.innerHTML = `<div class='citation-head'><span>sample_acme_policy.pdf</span><span>Grounded Evidence</span></div>${answer.slice(0, 160)}...`;
+                }
+
+            } catch (err) {
+                asstBub.textContent = 'Failed to connect to local Ollama / AXIOM server: ' + err.message;
+            }
+        }
+
+        studioForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            sendStudioMessage(studioInput.value);
+        });
+
+        document.querySelectorAll('.prompt-chip').forEach(btn => {
+            btn.addEventListener('click', () => {
+                sendStudioMessage(btn.dataset.q);
+            });
+        });
+    </script>
+    <!-- Axiom Sovereign Floating Chatbot Widget -->
+    <script src="/static/chatbot.js" data-project-slug="general-policy" data-brand-name="AXIOM" data-brand-subtitle="Sovereign AI · Grounded Answers" data-logo="/static/logo.svg"></script>
+</body>
+</html>

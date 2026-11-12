@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+    <defs>
+        <!-- Caramel Amber to Rich Cocoa Gradient -->
+        <linearGradient id="axiom-caramel" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E06C05"/>
+            <stop offset="50%" stop-color="#C05800"/>
+            <stop offset="100%" stop-color="#713600"/>
+        </linearGradient>
+        <!-- Warm Cocoa to Dark Espresso Gradient -->
+        <linearGradient id="axiom-cocoa" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8F4500"/>
+            <stop offset="60%" stop-color="#713600"/>
+            <stop offset="100%" stop-color="#38240D"/>
+        </linearGradient>
+        <!-- Vanilla Cream Prism Core Gradient -->
+        <linearGradient id="axiom-cream" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFFFFF"/>
+            <stop offset="100%" stop-color="#FDFBD4"/>
+        </linearGradient>
+        <filter id="axiom-amber-glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+        </filter>
+    </defs>
+
+    <!-- Neubrutalist Hard Shadow Offset -->
+    <path d="M26 6L43 35H34L26 21L18 35H9L26 6Z" fill="#1A1006" fill-opacity="0.85"/>
+
+    <!-- Outer Geometric Delta Hexagon Shield -->
+    <polygon points="24,3 43,14 43,34 24,45 5,34 5,14" fill="#38240D" stroke="#C05800" stroke-width="2.5"/>
+
+    <!-- Left Prism Wing (Caramel Amber) -->
+    <polygon points="24,7 8,33 17,33 24,19" fill="url(#axiom-caramel)" stroke="#38240D" stroke-width="1.5" filter="url(#axiom-amber-glow)"/>
+
+    <!-- Right Prism Wing (Rich Cocoa) -->
+    <polygon points="24,7 40,33 31,33 24,19" fill="url(#axiom-cocoa)" stroke="#38240D" stroke-width="1.5"/>
+
+    <!-- Center Apex Facet (Vanilla Cream Reflection) -->
+    <polygon points="24,7 20,16 28,16" fill="url(#axiom-cream)" stroke="#C05800" stroke-width="1"/>
+
+    <!-- Grounded Mathematical Eye / Honesty Core -->
+    <polygon points="24,24 29,32 19,32" fill="#1A1006" stroke="#C05800" stroke-width="2"/>
+    <circle cx="24" cy="28.5" r="2" fill="#FDFBD4"/>
+    <circle cx="24" cy="28.5" r="0.9" fill="#C05800"/>
+</svg>

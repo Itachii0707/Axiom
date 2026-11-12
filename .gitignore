@@ -1,0 +1,46 @@
+# ---- Secrets / local config (NEVER commit) ----
+.env
+.claude/settings.local.json
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- Test / tooling caches ----
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---- Uploaded documents & local data (private content) ----
+data/
+pdf data/
+uploads/
+
+# ---- Logs ----
+*.log
+
+# ---- Local scratch / archives — not part of the public repo ----
+trash/
+convo.txt
+*.rar
+*.zip
+
+# ---- Internal planning notes (kept local; README.md + PROJECT_PLAN.md are the public docs) ----
+CHATBOT_AUDIT_AND_FIX_PLAN.md
+HOW_IT_WORKS.md
+IMPROVEMENTS.md
+TECH_STACK_AND_SYSTEM_REQUIREMENTS.md
+ocrplan.md
+plan.md
+
+# ---- Editors / OS ----
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

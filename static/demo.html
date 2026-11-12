@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AXIOM — Interactive Platform Walkthrough &amp; Demo</title>
+    <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+    <link rel="stylesheet" href="/static/theme.css">
+    <style>
+        .demo-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .demo-hero {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .demo-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            margin: 0 0 10px;
+        }
+        .demo-hero p {
+            color: var(--ink-2);
+            font-size: 16px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .scene-card {
+            background: var(--surface);
+            border: 2.5px solid var(--neo-border);
+            border-radius: var(--radius);
+            box-shadow: var(--neo-shadow-lg);
+            padding: 28px;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 28px;
+        }
+        @media (max-width: 860px) {
+            .scene-card { grid-template-columns: 1fr; }
+        }
+        .scene-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .scene-btn {
+            text-align: left;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: var(--surface-2);
+            border: 2px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+            color: var(--ink);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .scene-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 3px 3px 0px var(--neo-shadow);
+            border-color: var(--accent);
+        }
+        .scene-btn.active {
+            background: var(--accent);
+            color: #FDFBD4;
+            border-color: var(--neo-border);
+            box-shadow: 3px 3px 0px var(--neo-shadow);
+        }
+        .scene-btn small {
+            display: block;
+            font-family: var(--mono);
+            font-size: 10.5px;
+            font-weight: 500;
+            opacity: 0.85;
+            margin-top: 3px;
+        }
+        .scene-stage {
+            background: var(--bg);
+            border: 2px solid var(--neo-border);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .stage-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .stage-desc {
+            font-size: 13.5px;
+            color: var(--ink-2);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .stage-output {
+            background: var(--surface);
+            border: 1.5px solid var(--neo-border);
+            box-shadow: 2px 2px 0px var(--neo-shadow);
+            border-radius: 10px;
+            padding: 16px;
+            font-family: var(--mono);
+            font-size: 12.5px;
+            line-height: 1.6;
+            flex: 1;
+            overflow-y: auto;
+            color: var(--ink);
+        }
+    </style>
+</head>
+<body>
+    <div class="top-scanline"></div>
+    
+    <nav class="nav" style="border-radius: 0; border-left: none; border-right: none; border-top: none;">
+        <div class="wrap nav-in">
+            <a class="brand" href="/">
+                <span class="brand-mark"><img src="/static/logo.svg" alt="" width="32" height="32"></span>
+                AXIOM
+                <span class="crumb">DEMO SUITE</span>
+            </a>
+            <div class="spacer"></div>
+            <a class="btn btn-ghost btn-sm" href="/">← Return to Studio</a>
+        </div>
+    </nav>
+
+    <div class="demo-container">
+        <div class="demo-hero">
+            <span class="pill" style="margin-bottom: 12px;"><span class="status-dot"></span> Interactive Walkthrough</span>
+            <h1>Sovereign Enterprise Architecture Demo</h1>
+            <p>Click any scenario below to observe how Axiom executes hybrid retrieval, mathematical cross-encoder re-ranking, and the deterministic Honesty Gate in real time.</p>
+        </div>
+
+        <div class="scene-card liquid-glass">
+            <div class="scene-nav">
+                <button class="scene-btn active" onclick="loadScene(1, this)">
+                    01. Policy Retrieval &amp; Citations
+                    <small>Accurate Q&amp;A directly from HR Handbook</small>
+                </button>
+                <button class="scene-btn" onclick="loadScene(2, this)">
+                    02. Deterministic Honesty Gate
+                    <small>Blocking ungrounded prompt hallucination</small>
+                </button>
+                <button class="scene-btn" onclick="loadScene(3, this)">
+                    03. Vision Ingestion &amp; Chunking
+                    <small>PyMuPDF layout-aware vectorization</small>
+                </button>
+                <button class="scene-btn" onclick="loadScene(4, this)">
+                    04. Multi-Tenant SQL Isolation
+                    <small>Strict cryptographic tenant boundaries</small>
+                </button>
+            </div>
+
+            <div class="scene-stage" id="stageContent">
+                <!-- Dynamically Populated by loadScene -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SCENES = {
+            1: {
+                title: "Scenario 01: Grounded Policy Q&A with Exact Citations",
+                desc: "User asks 'What is the broadband reimbursement?'. The query is converted into 768-d dense embeddings, searched via pgvector HNSW + PostgreSQL BM25, and rescored by a neural cross-encoder. Llama 3.2 generates the answer strictly from retrieved chunk context.",
+                code: `<span style="color:var(--accent); font-weight:700;">USER INPUT:</span> "What is the broadband reimbursement?"\n\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 1]</span> nomic-embed-text generates 768-d query vector\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 2]</span> pgvector HNSW cosine search (Top 20 candidates retrieved)\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 3]</span> PostgreSQL BM25 Full-Text Search (Top 20 candidates retrieved)\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 4]</span> Reciprocal Rank Fusion (RRF, k=60) merges candidate pool\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 5]</span> Cross-Encoder Rescore: Top passage score = <strong style="color:var(--success);">+8.92</strong> (PASS > -9.50)\n\n` +
+                      `<span style="color:var(--accent); font-weight:700;">MODEL RESPONSE:</span>\n` +
+                      `"Employees who work remotely full-time are eligible for a monthly broadband and home internet stipend of $75 USD, added automatically to regular payroll cycles."\n\n` +
+                      `<span style="color:var(--accent);">GROUNDED CITATION:</span> sample_acme_policy.pdf · Page 1 · Section: Remote Work`
+            },
+            2: {
+                title: "Scenario 02: Deterministic Honesty Gate (Halting Hallucination)",
+                desc: "User asks a trick question outside the domain: 'What is grandmother's secret apple pie recipe?'. Commercial LLMs typically hallucinate a believable recipe. Axiom computes cross-attention relevance, detects a score of -10.85 (below -9.50 threshold), and halts the prompt before inference.",
+                code: `<span style="color:var(--accent); font-weight:700;">USER INPUT:</span> "What is grandmother's secret apple pie recipe?"\n\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 1]</span> nomic-embed-text vectorization completed\n` +
+                      `<span style="color:var(--ink-3);">[STAGE 2-4]</span> Dual search &amp; RRF executed across corporate documents\n` +
+                      `<span style="color:var(--danger); font-weight:700;">[STAGE 5 - HONESTY GATE ARMED]</span>\n` +
+                      `Top Cross-Encoder candidate score: <strong style="color:var(--danger);">-10.85</strong>\n` +
+                      `Grounded threshold: <strong>-9.50</strong>\n` +
+                      `<span style="color:var(--danger); font-weight:700;">RESULT: REFUSED BEFORE MODEL CALL (Latency: 18ms)</span>\n\n` +
+                      `<span style="color:var(--ink);">SYSTEM REFUSAL RESPONSE:</span>\n` +
+                      `"I don't have information about that in the verified company documents."\n\n` +
+                      `<span style="color:var(--accent);">ENTERPRISE COMPLIANCE:</span> Zero hallucinations allowed to reach executive or customer eyes.`
+            },
+            3: {
+                title: "Scenario 03: Multimodal Vision Ingestion & Sentence Chunking",
+                desc: "Uploaded documents (PDF, Word, Text) are parsed with PyMuPDF. Scanned figures and financial tables route to vision OCR models, and prose is segmented into structure-aware chunks with semantic token overlap.",
+                code: `<span style="color:var(--accent); font-weight:700;">INGESTION PIPELINE:</span> security_directive.txt\n\n` +
+                      `<span style="color:var(--ink-3);">[PARSER]</span> PyMuPDF text &amp; layout extraction: 100% clean UTF-8 extracted\n` +
+                      `<span style="color:var(--ink-3);">[CHUNKER]</span> StructureAwareChunker (target_tokens=400, overlap=60)\n` +
+                      `<span style="color:var(--ink-3);">[EMBEDDER]</span> Local nomic-embed-text generates 768-d float vector\n` +
+                      `<span style="color:var(--ink-3);">[PERSISTENCE]</span> PostgreSQL 16 pgvector HNSW index updated\n\n` +
+                      `<span style="color:var(--success); font-weight:700;">STATUS: INDEXED IN 1.2 SECONDS</span>\n` +
+                      `Document is immediately queryable via Copilot Studio or REST API.`
+            },
+            4: {
+                title: "Scenario 04: Multi-Tenant SQL Isolation",
+                desc: "Queries are authenticated and bounded by project UUIDs and scope constraints. Engineering documents cannot be accessed by Marketing bots, and tenant isolation is enforced directly in SQL queries, not relying on LLM prompt engineering.",
+                code: `<span style="color:var(--accent); font-weight:700;">SQL ENFORCEMENT QUERY:</span>\n\n` +
+                      `SELECT chunk.id, chunk.text, chunk.embedding &lt;=&gt; :query_vector AS distance\n` +
+                      `FROM document_chunks chunk\n` +
+                      `WHERE (chunk.project_id = :authenticated_project_id OR chunk.scope = 'company')\n` +
+                      `ORDER BY distance ASC\n` +
+                      `LIMIT 20;\n\n` +
+                      `<span style="color:var(--success); font-weight:700;">GUARANTEE:</span> Mathematical cross-tenant barrier. No tenant can view another's confidential vectors.`
+            }
+        };
+
+        function loadScene(id, btn) {
+            document.querySelectorAll('.scene-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const sc = SCENES[id];
+            const container = document.getElementById('stageContent');
+            container.innerHTML = `
+                <div>
+                    <div class="stage-title">${sc.title}</div>
+                    <div class="stage-desc">${sc.desc}</div>
+                </div>
+                <div class="stage-output">${sc.code.replace(/\\n/g, '<br>')}</div>
+            `;
+        }
+
+        // Initialize first scene
+        loadScene(1, document.querySelector('.scene-btn.active'));
+    </script>
+</body>
+</html>
+

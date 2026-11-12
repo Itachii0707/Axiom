@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+    <defs>
+        <linearGradient id="fav-caramel" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E06C05"/>
+            <stop offset="50%" stop-color="#C05800"/>
+            <stop offset="100%" stop-color="#713600"/>
+        </linearGradient>
+    </defs>
+    <!-- Dark Chocolate Neubrutalist Background with Hard Border -->
+    <rect width="32" height="32" rx="8" fill="#38240D" stroke="#C05800" stroke-width="2"/>
+    <!-- Delta Glyph -->
+    <path d="M16 5L27 23H21L16 13L11 23H5L16 5Z" fill="url(#fav-caramel)"/>
+    <!-- Inner Core -->
+    <polygon points="16,16 19.5,21.5 12.5,21.5" fill="#1A1006" stroke="#C05800" stroke-width="1.2"/>
+    <circle cx="16" cy="19.2" r="1.3" fill="#FDFBD4"/>
+</svg>
