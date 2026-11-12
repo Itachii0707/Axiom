@@ -19,6 +19,12 @@
 </p>
 
 <p align="center">
+  <a href="https://stan-random-christmas-baptist.trycloudflare.com" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Online%20(Click%20Here)-C05800?style=for-the-badge&amp;logo=cloudflare&amp;logoColor=FDFBD4" alt="Live Demo Online"/>
+  </a>
+</p>
+
+<p align="center">
   <img src="images/axiom_demo.svg" alt="Axiom Live Interactive Demo Walkthrough" width="100%"/>
   <br/><em>Live Architectural Pipeline &amp; Telemetry Demo: Grounded Policy Q&amp;A vs. Deterministic Honesty Gate Refusal</em>
 </p>
